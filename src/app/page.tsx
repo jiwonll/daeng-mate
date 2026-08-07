@@ -1,5 +1,5 @@
-import { createClient } from "@supabase/supabase-js";
+import { supabase } from "@/lib/supabase";
 
-export default function Home() {
-  return <main>"Ki"</main>;
+export default async function Home() {
+  const { data, error } = await supabase.from("profiles").select("*");
 }
