@@ -1,8 +1,15 @@
-import { supabase } from "@/lib/supabase";
-import landingHeader from "@/components/landing/LandingHeader";
-import landingMain from "@/components/landing/LandingMain";
-import landingFooter from "@/components/landing/LandingFooter";
+import LandingHeader from "@/components/landing/LandingHeader";
+import LandingMain from "@/components/landing/LandingMain";
+import LandingFooter from "@/components/landing/LandingFooter";
 
-export default async function Home() {
-  const { data, error } = await supabase.from("profiles").select("*");
+export default function Home() {
+  return (
+    <>
+      <LandingHeader />
+      <main>
+        <LandingMain />
+      </main>
+      {/* <LandingFooter /> */}
+    </>
+  );
 }

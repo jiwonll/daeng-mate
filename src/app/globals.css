@@ -10,6 +10,47 @@
   --font-heading: "Pretendard", sans-serif;
   --font-mono: var(--font-geist-mono);
 
+  /* Font Size & Line Height*/
+  --text-2xs: 0.625rem; /* 10px - 매우 작은 캡션 */
+  --text-2xs--line-height: 0.875rem;
+
+  --text-xs: 0.75rem; /* 12px - 부연 설명/태그 */
+  --text-xs--line-height: 1rem;
+
+  --text-sm: 0.875rem; /* 14px - 서브 텍스트/작은 버튼 */
+  --text-sm--line-height: 1.25rem;
+
+  --text-base: 1rem; /* 16px - 기본 본문 크기 */
+  --text-base--line-height: 1.5rem;
+
+  --text-lg: 1.125rem; /* 18px - 강조 본문/카드 제목 */
+  --text-lg--line-height: 1.75rem;
+
+  --text-xl: 1.25rem; /* 20px - 소제목 */
+  --text-xl--line-height: 1.75rem;
+
+  --text-2xl: 1.5rem; /* 24px - 섹션 제목/헤더 로고 */
+  --text-2xl--line-height: 2rem;
+
+  --text-3xl: 1.875rem; /* 30px - 대제목 */
+  --text-3xl--line-height: 2.25rem;
+
+  --text-4xl: 2.25rem; /* 36px - 랜딩 히어로 제목 */
+  --text-4xl--line-height: 2.5rem;
+
+  --text-5xl: 3rem; /* 48px - 대형 랜딩 메인 텍스트 */
+  --text-5xl--line-height: 1;
+
+  /* Font Weight */
+  --font-weight-thin: 100;
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+  --font-weight-black: 900;
+
   /* Color */
   --color-background: var(--background);
   --color-foreground: var(--foreground);

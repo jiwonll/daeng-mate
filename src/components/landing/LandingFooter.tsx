@@ -1,1 +1,4 @@
-export default function landingFooter() {}
+export default function LandingFooter() {
+  // return(
+  // )
+}
