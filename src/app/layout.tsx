@@ -11,6 +11,11 @@ const jua = Jua({
 export const metadata: Metadata = {
   title: "댕메이트",
   description: "우리 동네 강아지 산책 메이트",
+  openGraph: {
+    title: "댕메이트 - 동네 산책 친구 찾기",
+    description: "우리 동네 강아지 산책 메이트를 찾아보세요!",
+    images: ["/images/dog-meta.png"],
+  },
 };
 
 export default function RootLayout({

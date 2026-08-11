@@ -9,6 +9,7 @@
   --font-sans: "Pretendard", sans-serif;
   --font-heading: "Pretendard", sans-serif;
   --font-mono: var(--font-geist-mono);
+  --font-jua: var(--font-jua);
 
   /* Font Size & Line Height*/
   --text-2xs: 0.625rem; /* 10px - 매우 작은 캡션 */
