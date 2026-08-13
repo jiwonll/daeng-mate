@@ -4,12 +4,12 @@ import LandingFooter from "@/components/landing/LandingFooter";
 
 export default function Home() {
   return (
-    <>
+    <div className="min-h-screen flex flex-col">
       <LandingHeader />
-      <main>
+      <main className="flex-1">
         <LandingMain />
       </main>
       <LandingFooter />
-    </>
+    </div>
   );
 }

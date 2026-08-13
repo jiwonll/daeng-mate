@@ -1,10 +1,12 @@
 "use client";
 
-import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import useNavigateByAuth from "@/hooks/useNavigateByAuth";
 
 export default function LandingHeader() {
+  const navigateByAuth = useNavigateByAuth();
   return (
-    <div className="flex items-center justify-between gap-1 pt-1 pb-0.5 pl-2 pr-2">
+    <div className="bg-background opacity-90 shadow-sm flex items-center justify-between gap-1 pt-1 pb-2 pl-2 pr-2 sticky top-0 z-50">
       <header className="flex items-center justify-start gap-1 pt-1 pb-0.5 pl-2 pr-2">
         <img
           className="w-20 -ml-1 pt-1 rounded-full"
@@ -17,13 +19,19 @@ export default function LandingHeader() {
           alt="댕메이트"
         />
       </header>
-      <div className="flex items-center justify-end gap-2">
-        <button className="text-sm font-bold text-gray-600 hover:text-gray-800">
+      <div className="flex items-center justify-end gap-2 pr-1">
+        <Button
+          onClick={navigateByAuth}
+          className="text-sm font-bold text-gray-600 hover:text-gray-800"
+        >
           로그인
-        </button>
-        <button className="text-sm font-bold text-gray-600 hover:text-gray-800">
+        </Button>
+        <Button
+          onClick={navigateByAuth}
+          className="text-sm font-bold text-gray-600 hover:text-gray-800"
+        >
           회원가입
-        </button>
+        </Button>
       </div>
     </div>
   );
