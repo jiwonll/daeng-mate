@@ -1,18 +1,13 @@
 import { cn } from "@/lib/utils";
 
-type LandingIntroProps = {
-  image: string;
-  title: string;
-  description: string;
-  imageClassName?: string;
-};
+import { InfoCardProps } from "@/types/common";
 
 export default function LandingIntro({
   image,
   title,
   description,
   imageClassName,
-}: LandingIntroProps) {
+}: InfoCardProps) {
   return (
     <div className="border-3 rounded-2xl p-1 text-center">
       <img
