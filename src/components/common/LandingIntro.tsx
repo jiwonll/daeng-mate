@@ -20,7 +20,7 @@ export default function LandingIntro({
         alt={title}
         className={cn("mx-auto h-40 w-40 object-contain", imageClassName)}
       />
-      <h3 className="mt-4 font-jua text-2xl">{title}</h3>
+      <h3 className="mt-2 font-jua text-2xl">{title}</h3>
       <p className="mt-2 text-base font-jua leading-6 text-muted-foreground mb-2">
         {description}
       </p>

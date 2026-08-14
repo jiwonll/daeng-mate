@@ -50,7 +50,7 @@ export default function LandingMain() {
           image="/images/landing/intro-3.svg"
           title="건강한 산책 습관"
           description="산책 통계를 통해 반려견의 건강 상태를 체크할 수 있어요"
-          imageClassName="-ml-0.1 -mt-1"
+          imageClassName="-mt-1"
         />
       </div>
     </>
