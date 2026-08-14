@@ -7,7 +7,7 @@ import { useState } from "react";
 export default function PasswordInput() {
   const [showPassword, setShowPassword] = useState(false);
   return (
-    <div className="relative w-full max-w-[500px]">
+    <div className="relative w-full">
       <Input
         className="border-foreground placeholder:text-muted-foreground w-full h-10 px-5"
         type={showPassword ? "text" : "password"}
@@ -15,10 +15,15 @@ export default function PasswordInput() {
       />
 
       <button
+        type="button"
         className="absolute top-1/2 right-3 -translate-y-1/2"
         onClick={() => setShowPassword((prev) => !prev)}
       >
-        {showPassword ? <Eye /> : <EyeClosed />}
+        {showPassword ? (
+          <Eye className="w-10" />
+        ) : (
+          <EyeClosed className="w-10" />
+        )}
       </button>
     </div>
   );
