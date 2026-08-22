@@ -1,10 +1,7 @@
-"use client";
-
 import { Button } from "@/components/ui/button";
-import useNavigateByAuth from "@/hooks/useAuthActions";
+import Link from "next/link";
 
 export default function LandingHeader() {
-  const navigateByAuth = useNavigateByAuth();
   return (
     <div className="bg-background opacity-90 shadow-sm flex items-center justify-between gap-1 pt-1 pb-2 pl-2 pr-2 sticky top-0 z-50">
       <header className="flex items-center justify-start gap-1 pt-1 pb-0.5 pl-2 pr-2">
@@ -21,16 +18,16 @@ export default function LandingHeader() {
       </header>
       <div className="flex items-center justify-end gap-2 pr-1">
         <Button
-          onClick={navigateByAuth}
           className="text-sm font-bold text-gray-600 hover:text-gray-800"
+          asChild
         >
-          로그인
+          <Link href={"/login"}>로그인</Link>
         </Button>
         <Button
-          onClick={navigateByAuth}
           className="text-sm font-bold text-gray-600 hover:text-gray-800"
+          asChild
         >
-          회원가입
+          <Link href={"/signup"}>회원가입</Link>
         </Button>
       </div>
     </div>

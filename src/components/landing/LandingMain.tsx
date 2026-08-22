@@ -1,11 +1,8 @@
-"use client";
-
 import { Button } from "@/components/ui/button";
-import useAuthActions from "@/hooks/useAuthActions";
 import LandingIntro from "../common/LandingIntro";
+import Link from "next/link";
 
 export default function LandingMain() {
-  const { navigateByAuth } = useAuthActions();
   return (
     <>
       <section className="flex flex-col items-center justify-center gap-5 pt-20">
@@ -20,12 +17,8 @@ export default function LandingMain() {
           <br className="block md:hidden" />더 행복한 산책을 경험하세요
         </span>
         <div className="pt-5">
-          <Button
-            size="lg"
-            className="font-jua text-xl"
-            onClick={navigateByAuth}
-          >
-            산책 메이트 찾으러 가기
+          <Button size="lg" className="font-jua text-xl" asChild>
+            <Link href={"/login"}>산책 메이트 찾으러 가기</Link>
           </Button>
         </div>
 
