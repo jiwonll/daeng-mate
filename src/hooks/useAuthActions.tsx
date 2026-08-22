@@ -3,13 +3,11 @@
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase";
 
-export default function useNavigateByAuth() {
+export default function useAuthActions() {
   const router = useRouter();
 
   const navigateByAuth = () => {
     const result = supabase.auth.getUser();
-
-    console.log("2. getUser 호출함", result);
 
     result.then(({ data: { user } }) => {
       if (user) {
@@ -19,5 +17,14 @@ export default function useNavigateByAuth() {
       }
     });
   };
-  return navigateByAuth;
+
+  const loginWithKakao = () => {};
+
+  const loginWithGoogle = () => {};
+
+  return {
+    navigateByAuth,
+    loginWithKakao,
+    loginWithGoogle,
+  };
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import useNavigateByAuth from "@/hooks/useNavigateByAuth";
+import useNavigateByAuth from "@/hooks/useAuthActions";
 
 export default function LandingHeader() {
   const navigateByAuth = useNavigateByAuth();

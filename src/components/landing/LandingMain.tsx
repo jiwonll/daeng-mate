@@ -1,11 +1,11 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import useNavigateByAuth from "@/hooks/useNavigateByAuth";
+import useAuthActions from "@/hooks/useAuthActions";
 import LandingIntro from "../common/LandingIntro";
 
 export default function LandingMain() {
-  const navigateByAuth = useNavigateByAuth();
+  const { navigateByAuth } = useAuthActions();
   return (
     <>
       <section className="flex flex-col items-center justify-center gap-5 pt-20">
