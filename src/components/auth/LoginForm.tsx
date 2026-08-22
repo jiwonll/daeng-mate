@@ -99,7 +99,7 @@ export default function LoginForm() {
           <Link href={"/signup"}>회원가입 하기</Link>
         </Button>
         <hr className="my-5 border-t border-gray-300" />
-        <SocialLogin></SocialLogin>
+        <SocialLogin />
       </div>
     </div>
   );
