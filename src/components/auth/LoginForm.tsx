@@ -8,7 +8,7 @@ import SocialLogin from "./SocialLogin";
 
 export default function LoginForm() {
   return (
-    <div className="max-w-[600px] w-full mx-auto flex justify-center min-h-screen -mt-10 flex-col items-center">
+    <div className="max-w-150 w-full mx-auto flex justify-center min-h-screen -mt-10 flex-col items-center">
       <Image
         width={300}
         height={100}
