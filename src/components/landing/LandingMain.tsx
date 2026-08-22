@@ -16,7 +16,8 @@ export default function LandingMain() {
           <span className="mt-3 block">더 즐거운 산책</span>
         </h1>
         <span className="text-sm md:text-lg text-center">
-          실시간 산책 기록과 동네 메이트 매칭으로 더 행복한 산책을 경험하세요
+          실시간 산책 기록과 동네 메이트 매칭으로
+          <br className="block md:hidden" />더 행복한 산책을 경험하세요
         </span>
         <div className="pt-5">
           <Button
