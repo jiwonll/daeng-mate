@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import PasswordInput from "@/components/auth/PasswordInput";
 import SocialSignup from "./SocialSignup";
 import Link from "next/link";
-import { supabase } from "@/lib/supabase";
+import { supabase } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 

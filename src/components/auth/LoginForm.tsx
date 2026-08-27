@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import PasswordInput from "@/components/auth/PasswordInput";
 import SocialLogin from "./SocialLogin";
 import Link from "next/link";
-import { supabase } from "@/lib/supabase";
+import { supabase } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
