@@ -2,7 +2,7 @@
 
 import LandingPage from "@/components/landing/LandingPage";
 import MainPage from "@/components/main/MainPage";
-import { supabase } from "@/lib/supabase";
+import { supabase } from "@/lib/supabase/client";
 import { useState, useEffect } from "react";
 
 export default function Home() {
