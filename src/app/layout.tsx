@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Jua } from "next/font/google";
 import "./globals.css";
 import NavWrapper from "@/components/common/NavWrapper";
-
+import { Toaster } from "@/components/ui/sonner";
 const jua = Jua({
   variable: "--font-jua",
   subsets: ["latin"],
@@ -30,6 +30,7 @@ export default function RootLayout({
         <div className="flex flex-col min-h-screen">
           <NavWrapper>{children}</NavWrapper>
         </div>
+        <Toaster position="top-center" />
       </body>
     </html>
   );

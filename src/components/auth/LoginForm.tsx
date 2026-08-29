@@ -11,6 +11,7 @@ import Link from "next/link";
 import { supabase } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "sonner";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -26,11 +27,11 @@ export default function LoginForm() {
         password,
       });
       if (error) {
-        alert(`로그인 실패 ${error.message}`);
+        toast.error("로그인 실패");
         return;
       }
       if (data.session) {
-        alert("로그인 성공!");
+        toast.success("로그인 성공!");
         router.push("/");
         router.refresh();
       }
@@ -41,7 +42,7 @@ export default function LoginForm() {
           ? error.message
           : "알 수 없는 오류가 발생했습니다.";
 
-      alert(`로그인 실패: ${errorMessage}`);
+      toast.error(`로그인 실패: ${errorMessage}`);
     } finally {
       setIsLoading(false);
     }
