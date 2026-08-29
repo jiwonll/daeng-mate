@@ -1,8 +1,12 @@
 import Link from "next/link";
 import { NAV_ITEMS } from "@/constants/NAV_ITEMS";
 import Image from "next/image";
+import { Button } from "../ui/button";
+import useLogout from "@/hooks/useLogout";
+import { Settings } from "lucide-react";
 
 export default function Sidebar() {
+  const { handleLogout, isPending } = useLogout();
   const renderIcon = (Icon: any, active: boolean) => {
     if (typeof Icon === "function" || typeof Icon === "object") {
       return (
@@ -17,14 +21,17 @@ export default function Sidebar() {
   return (
     <aside className="hidden md:flex fixed top-0 left-0 h-screen w-64 bg-white border-r border-gray-200 z-30 flex-col justify-between p-6">
       <div className="space-y-8">
-        <Link href="/" className="flex items-center space-x-2 px-2">
+        <Link
+          href="/"
+          className="flex items-center leading-none space-x-2 px-2"
+        >
           <Image
             src="/images/dog-logo.svg"
             alt="댕메이트 로고"
             width={100}
             height={100}
           />
-          <span className="text-2xl font-extrabold font-jua text-primary">
+          <span className="-ml-5 -mb-3 text-3xl font-extrabold font-jua text-primary">
             댕메이트
           </span>
         </Link>
@@ -55,8 +62,17 @@ export default function Sidebar() {
         </nav>
       </div>
 
-      <div className="pt-6 border-t border-gray-100 text-xs text-gray-400">
-        <p>© 댕메이트 Dangmate</p>
+      <div className="pt-6 border-t border-gray-100 text-xs text-gray-400 flex justify-between">
+        <Link
+          href={"/profile"}
+          className="flex items-center gap-2 text-sm text-gray-500"
+        >
+          <Settings className="w-6 h-6" />
+          <span className="font-jua">내 계정</span>
+        </Link>
+        <Button className="h-10" onClick={handleLogout}>
+          {isPending ? "로그아웃 중" : "로그아웃"}
+        </Button>
       </div>
     </aside>
   );

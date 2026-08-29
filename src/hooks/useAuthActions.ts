@@ -1,6 +1,7 @@
 "use client";
 
 import { supabase } from "@/lib/supabase/client";
+import { toast } from "sonner";
 
 export default function useAuthActions() {
   const loginWithKakao = async () => {
@@ -10,10 +11,11 @@ export default function useAuthActions() {
         options: { redirectTo: `${window.location.origin}/auth/callback` },
       });
       if (error) {
-        throw error;
+        toast.error("로그인 실패");
+        return;
       }
     } catch (error) {
-      console.error("카카오 로그인 실패", error);
+      toast.error("네트워크 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
     }
   };
 
