@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Jua } from "next/font/google";
 import "./globals.css";
-import Sidebar from "@/components/common/Sidebar";
-import BottomNav from "@/components/common/BottomNav";
+import NavWrapper from "@/components/common/NavWrapper";
 
 const jua = Jua({
   variable: "--font-jua",
@@ -28,14 +27,8 @@ export default function RootLayout({
   return (
     <html lang="ko" className={`${jua.variable} h-full antialiased`}>
       <body className="h-full bg-gray-50 font-sans">
-        <Sidebar />
-
-        <BottomNav />
-
-        <div className="md:ml-64 flex flex-col min-h-screen">
-          <main className="flex-1 pb-20 md:pb-10 px-4 max-w-4xl mx-auto w-full">
-            {children}
-          </main>
+        <div className="flex flex-col min-h-screen">
+          <NavWrapper>{children}</NavWrapper>
         </div>
       </body>
     </html>
