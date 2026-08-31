@@ -25,6 +25,10 @@ export async function middleware(request: NextRequest) {
           request.cookies.set(name, value);
         });
 
+        response = NextResponse.next({
+          request,
+        });
+
         cookiesToSet.forEach(({ name, value, options }) => {
           response.cookies.set(name, value, options);
         });
@@ -34,17 +38,14 @@ export async function middleware(request: NextRequest) {
 
   const {
     data: { user },
-    error,
   } = await supabase.auth.getUser();
-
-  if (error) {
-    console.error("Supabase Auth 오류:", error);
-  }
 
   const { pathname } = request.nextUrl;
 
   const isPublicPage =
-    pathname.startsWith("/login") || pathname.startsWith("/auth");
+    pathname.startsWith("/login") ||
+    pathname.startsWith("/auth") ||
+    pathname.startsWith("/signup");
 
   if (!user && !isPublicPage) {
     return NextResponse.redirect(new URL("/login", request.url));
