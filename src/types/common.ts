@@ -4,3 +4,8 @@ export type InfoCardProps = {
   description: string;
   imageClassName?: string;
 };
+
+export type AuthCredentials = {
+  email: string;
+  password: string;
+};
