@@ -3,6 +3,7 @@ import { Jua } from "next/font/google";
 import "./globals.css";
 import NavWrapper from "@/components/common/NavWrapper";
 import { Toaster } from "@/components/ui/sonner";
+import QueryProvider from "@/lib/tanstack-query/provider";
 const jua = Jua({
   variable: "--font-jua",
   subsets: ["latin"],
@@ -27,10 +28,12 @@ export default function RootLayout({
   return (
     <html lang="ko" className={`${jua.variable} h-full antialiased`}>
       <body className="h-full bg-gray-50 font-sans">
-        <div className="flex flex-col min-h-screen">
-          <NavWrapper>{children}</NavWrapper>
-        </div>
-        <Toaster position="top-center" />
+        <QueryProvider>
+          <div className="flex flex-col min-h-screen">
+            <NavWrapper>{children}</NavWrapper>
+          </div>
+          <Toaster position="top-center" />
+        </QueryProvider>
       </body>
     </html>
   );
