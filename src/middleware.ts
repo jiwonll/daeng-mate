@@ -2,43 +2,47 @@ import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
 export async function middleware(request: NextRequest) {
-  let response = NextResponse.next({ request });
+  let response = NextResponse.next({
+    request,
+  });
 
-  // 1. 요청 처리 시점(함수 내부)에서 환경 변수 가져오기
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-  // 2. 환경 변수가 없으면 Supabase 클라이언트를 아예 생성하지 않고 통과
   if (!supabaseUrl || !supabaseAnonKey) {
-    console.error(
-      "Supabase 환경 변수가 설정되지 않았습니다. Vercel 설정을 확인하세요."
-    );
+    console.error("Supabase 환경변수가 설정되지 않았습니다.");
     return response;
   }
 
-  // 3. 환경 변수 존재가 확인된 후 클라이언트 생성
   const supabase = createServerClient(supabaseUrl, supabaseAnonKey, {
     cookies: {
       getAll() {
         return request.cookies.getAll();
       },
+
       setAll(cookiesToSet) {
-        cookiesToSet.forEach(({ name, value }) =>
-          request.cookies.set(name, value)
-        );
-        response = NextResponse.next({ request });
-        cookiesToSet.forEach(({ name, value, options }) =>
-          response.cookies.set(name, value, options)
-        );
+        cookiesToSet.forEach(({ name, value }) => {
+          request.cookies.set(name, value);
+        });
+
+        cookiesToSet.forEach(({ name, value, options }) => {
+          response.cookies.set(name, value, options);
+        });
       },
     },
   });
 
   const {
     data: { user },
+    error,
   } = await supabase.auth.getUser();
 
+  if (error) {
+    console.error("Supabase Auth 오류:", error);
+  }
+
   const { pathname } = request.nextUrl;
+
   const isPublicPage =
     pathname.startsWith("/login") || pathname.startsWith("/auth");
 
