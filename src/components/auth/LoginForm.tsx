@@ -8,45 +8,34 @@ import { Label } from "@/components/ui/label";
 import PasswordInput from "@/components/auth/PasswordInput";
 import SocialLogin from "./SocialLogin";
 import Link from "next/link";
-import { supabase } from "@/lib/supabase/client";
+import { signInWithPassword } from "@/services/auth";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
+import { useMutation } from "@tanstack/react-query";
 
 export default function LoginForm() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const handleLogin = async (e: React.SubmitEvent) => {
+  const { mutate: handleLogin, isPending } = useMutation({
+    mutationFn: signInWithPassword,
+    onSuccess: () => {
+      toast.success("로그인 성공");
+      router.replace("/main");
+      router.refresh();
+    },
+    onError: (error: Error) => {
+      toast.error(
+        `로그인 실패: ${error.message || "알 수 없는 오류가 발생했습니다."}`
+      );
+    },
+  });
+  const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
-    try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
-      if (error) {
-        toast.error("로그인 실패");
-        return;
-      }
-      if (data.session) {
-        toast.success("로그인 성공!");
-        router.push("/");
-        router.refresh();
-      }
-    } catch (error) {
-      console.error("로그인 실행 중 에러:", error);
-      const errorMessage =
-        error instanceof Error
-          ? error.message
-          : "알 수 없는 오류가 발생했습니다.";
-
-      toast.error(`로그인 실패: ${errorMessage}`);
-    } finally {
-      setIsLoading(false);
-    }
+    handleLogin({ email, password });
   };
+
   return (
     <div className="max-w-150 w-full mx-auto flex justify-center min-h-screen -mt-5 flex-col items-center">
       <Image
@@ -64,7 +53,7 @@ export default function LoginForm() {
           <span className="text-primary">댕메이트</span>에 로그인 하세요
         </span>
         <form
-          onSubmit={handleLogin}
+          onSubmit={onSubmit}
           className="mt-6 flex flex-col justify-center gap-5 w-full"
         >
           <Input
@@ -73,13 +62,13 @@ export default function LoginForm() {
             placeholder="이메일을 입력해주세요"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            disabled={isLoading}
+            disabled={isPending}
             required
           />
           <PasswordInput
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            disabled={isLoading}
+            disabled={isPending}
           />
           <div className="flex items-center gap-2">
             <Checkbox id="remember" />
@@ -87,10 +76,10 @@ export default function LoginForm() {
           </div>
           <Button
             type="submit"
-            disabled={isLoading}
+            disabled={isPending}
             className="leading-none w-full h-13 py-5 self-center font-medium text-lg mt-2"
           >
-            {isLoading ? "로그인 중..." : "로그인 하기"}
+            {isPending ? "로그인 중..." : "로그인 하기"}
           </Button>
         </form>
         <Button

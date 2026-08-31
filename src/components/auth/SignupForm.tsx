@@ -6,49 +6,46 @@ import { Button } from "@/components/ui/button";
 import PasswordInput from "@/components/auth/PasswordInput";
 import SocialSignup from "./SocialSignup";
 import Link from "next/link";
-import { supabase } from "@/lib/supabase/client";
+import { signUp } from "@/services/auth";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 export default function SignupForm() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const handleSignup = async (e: React.SubmitEvent) => {
-    e.preventDefault();
-    if (password !== passwordConfirm) {
-      alert("비밀번호가 일치하지 않습니다.");
-      return;
-    }
-    setIsLoading(true);
-    try {
-      const { data, error } = await supabase.auth.signUp({
-        email,
-        password,
-      });
-      if (error) {
-        alert(`회원가입 실패 ${error.message}`);
-        return;
-      }
+
+  const { mutate: handleSignup, isPending } = useMutation({
+    mutationFn: signUp,
+    onSuccess: (data) => {
       if (data.user) {
-        alert("회원가입 성공!");
-        router.push("/login");
+        toast.success("회원가입 성공");
+        router.replace("/login");
         router.refresh();
       }
-    } catch (error) {
-      console.error("회원가입 실행 중 에러:", error);
-      const errorMessage =
-        error instanceof Error
-          ? error.message
-          : "알 수 없는 오류가 발생했습니다.";
+    },
 
-      alert(`회원가입 실패: ${errorMessage}`);
-    } finally {
-      setIsLoading(false);
+    onError: (error: Error) => {
+      console.error("회원가입 실행 중 에러:", error);
+      toast.error(
+        `회원가입 실패: ${error.message || "알 수 없는 오류가 발생했습니다."}`
+      );
+    },
+  });
+  const onSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (password !== passwordConfirm) {
+      toast.error("비밀번호가 일치하지 않습니다.");
+      return;
     }
+
+    handleSignup({ email, password });
   };
+
   return (
     <div className="max-w-150 w-full mx-auto flex justify-center min-h-screen -mt-5 flex-col items-center">
       <Image
@@ -66,7 +63,7 @@ export default function SignupForm() {
           <span className="text-primary">댕메이트</span>에 회원가입 하세요
         </span>
         <form
-          onSubmit={handleSignup}
+          onSubmit={onSubmit}
           className="mt-6 flex flex-col justify-center gap-5 w-full"
         >
           <Input
@@ -75,28 +72,28 @@ export default function SignupForm() {
             placeholder="이메일을 입력해주세요"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            disabled={isLoading}
+            disabled={isPending}
             required
           />
           <PasswordInput
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            disabled={isLoading}
+            disabled={isPending}
           />
 
           <PasswordInput
             value={passwordConfirm}
             onChange={(e) => setPasswordConfirm(e.target.value)}
-            disabled={isLoading}
+            disabled={isPending}
             placeholder="비밀번호를 한번 더 입력해주세요"
           />
 
           <Button
             type="submit"
-            disabled={isLoading}
+            disabled={isPending}
             className="leading-none w-full h-13 py-5 self-center font-medium text-lg mt-2"
           >
-            {isLoading ? "회원가입 중..." : "회원가입 하기"}
+            {isPending ? "회원가입 중..." : "회원가입 하기"}
           </Button>
         </form>
         <Button
