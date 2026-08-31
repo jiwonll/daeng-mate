@@ -34,17 +34,16 @@ export async function middleware(request: NextRequest) {
 
   const { pathname } = request.nextUrl;
 
-  const isPublicPage =
-    pathname.startsWith("/login") ||
-    pathname.startsWith("/auth") ||
-    pathname.startsWith("/signup");
+  const isAuthPage =
+    pathname.startsWith("/login") || pathname.startsWith("/signup");
+  const isLandingPage = pathname === "/";
 
-  if (!user && !isPublicPage) {
+  if (!user && !isAuthPage && !isLandingPage) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  if (user && isPublicPage) {
-    return NextResponse.redirect(new URL("/", request.url));
+  if (user && (isAuthPage || isLandingPage)) {
+    return NextResponse.redirect(new URL("/main", request.url));
   }
 
   return response;
