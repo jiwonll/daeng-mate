@@ -1,19 +1,22 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
-const supabaseUrl =
-  process.env.NEXT_PUBLIC_SUPABASE_URL || "https://placeholder.supabase.co";
-const supabaseAnonKey =
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "placeholder-key";
-
 export async function middleware(request: NextRequest) {
   let response = NextResponse.next({ request });
 
-  if (supabaseUrl.includes("placeholder")) {
-    console.error("Supabase 환경 변수가 설정되지 않았습니다. Vercel 설정을 확인하세요.");
+  // 1. 요청 처리 시점(함수 내부)에서 환경 변수 가져오기
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+  // 2. 환경 변수가 없으면 Supabase 클라이언트를 아예 생성하지 않고 통과
+  if (!supabaseUrl || !supabaseAnonKey) {
+    console.error(
+      "Supabase 환경 변수가 설정되지 않았습니다. Vercel 설정을 확인하세요."
+    );
     return response;
   }
 
+  // 3. 환경 변수 존재가 확인된 후 클라이언트 생성
   const supabase = createServerClient(supabaseUrl, supabaseAnonKey, {
     cookies: {
       getAll() {
