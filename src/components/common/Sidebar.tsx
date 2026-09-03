@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { NAV_ITEMS } from "@/constants/NAV_ITEMS";
 import Image from "next/image";
@@ -63,13 +65,13 @@ export default function Sidebar() {
       </div>
 
       <div className="pt-6 border-t border-gray-100 text-xs text-gray-400 flex justify-between">
-        {/* <Link
+        <Link
           href={"/profile"}
-          className="flex items-center gap-2 text-sm text-gray-500"
-        > */}
-        <Settings className="w-6 h-6" />
-        <span className="font-jua">내 계정</span>
-        {/* </Link> */}
+          className="flex gap-1 justify-center items-center"
+        >
+          <Settings className="w-6 h-6" />
+          <span className="font-jua text-sm ">내 계정</span>
+        </Link>
         <Button className="h-10" onClick={() => handleLogout()}>
           {isPending ? "로그아웃 중" : "로그아웃"}
         </Button>
