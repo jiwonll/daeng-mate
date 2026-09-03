@@ -70,7 +70,7 @@ export default function Sidebar() {
         <Settings className="w-6 h-6" />
         <span className="font-jua">내 계정</span>
         {/* </Link> */}
-        <Button className="h-10" onClick={() => handleLogout}>
+        <Button className="h-10" onClick={() => handleLogout()}>
           {isPending ? "로그아웃 중" : "로그아웃"}
         </Button>
       </div>

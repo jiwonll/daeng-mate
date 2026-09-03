@@ -37,10 +37,15 @@ export async function getCurrentUser() {
 }
 
 export async function signInWithKakao() {
+  const origin =
+    typeof window !== "undefined"
+      ? window.location.origin
+      : process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "kakao",
     options: {
-      redirectTo: `${window.location.origin}/auth/callback`,
+      redirectTo: `${origin}/auth/callback`,
     },
   });
 

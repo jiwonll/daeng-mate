@@ -21,9 +21,13 @@ export async function middleware(request: NextRequest) {
       },
 
       setAll(cookiesToSet) {
-        cookiesToSet.forEach(({ name, value, options }) => {
-          response.cookies.set(name, value, options);
+        cookiesToSet.forEach(({ name, value }) => {
+          request.cookies.set(name, value);
         });
+        response = NextResponse.next({ request });
+        cookiesToSet.forEach(({ name, value, options }) =>
+          response.cookies.set(name, value, options)
+        );
       },
     },
   });
@@ -34,9 +38,14 @@ export async function middleware(request: NextRequest) {
 
   const { pathname } = request.nextUrl;
 
+  const isAuthCallback = pathname.startsWith("/auth/callback");
   const isAuthPage =
     pathname.startsWith("/login") || pathname.startsWith("/signup");
   const isLandingPage = pathname === "/";
+
+  if (isAuthCallback) {
+    return response;
+  }
 
   if (!user && !isAuthPage && !isLandingPage) {
     return NextResponse.redirect(new URL("/login", request.url));
