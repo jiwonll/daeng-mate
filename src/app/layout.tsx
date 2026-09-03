@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Jua } from "next/font/google";
 import "./globals.css";
-import NavWrapper from "@/components/common/NavWrapper";
 import { Toaster } from "@/components/ui/sonner";
 import QueryProvider from "@/lib/tanstack-query/provider";
 const jua = Jua({
@@ -29,9 +28,7 @@ export default function RootLayout({
     <html lang="ko" className={`${jua.variable} h-full antialiased`}>
       <body className="h-full bg-gray-50 font-sans">
         <QueryProvider>
-          <div className="flex flex-col min-h-screen">
-            <NavWrapper>{children}</NavWrapper>
-          </div>
+          <div className="flex flex-col min-h-screen">{children}</div>
           <Toaster position="top-center" />
         </QueryProvider>
       </body>
