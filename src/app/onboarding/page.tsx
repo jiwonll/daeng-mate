@@ -3,72 +3,225 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import useOnboarding from "@/hooks/useOnboarding";
 
 export default function OnboardingPage() {
-  const [nickname, setNickname] = useState("");
-  const [dogName, setDogName] = useState("");
+  const { submitOnboarding, isLoading } = useOnboarding();
 
-  const handleSubmit = () => {
-    // TODO: 온보딩 정보 저장
+  const [form, setForm] = useState({
+    nickname: "",
+    gender: "",
+    location: "",
+    dogName: "",
+    dogGender: "",
+    dogAge: "",
+    breed: "",
+    neutered: false,
+    personality: "",
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    setForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async () => {
+    await submitOnboarding({
+      ...form,
+      dogAge: Number(form.dogAge),
+    });
   };
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-[#FFF9E8] px-4">
-      <div className="w-full max-w-[480px] rounded-3xl bg-white p-8 shadow-sm">
-        {/* 상단 */}
+    <main className="flex min-h-screen justify-center bg-[#FFF9E8] px-4 py-10">
+      <div className="w-full max-w-[500px] rounded-3xl bg-white p-8">
         <div className="mb-8">
-          <p className="mb-2 text-sm font-medium text-[#F5A623]">
-            댕메이트에 오신 걸 환영해요 🐶
-          </p>
-
-          <h1 className="text-2xl font-bold leading-tight text-gray-900">
-            어떤 이름으로
+          <img
+            src="/icons/logo.svg"
+            alt="댕메이트 로고"
+            className="mx-auto h-40 w-40 object-contain"
+          />
+          <h1 className="text-2xl font-bold -mt-5">
+            댕메이트를 시작하기 전에
             <br />
-            불러드릴까요?
+            정보를 알려주세요
           </h1>
 
           <p className="mt-3 text-sm text-gray-500">
-            댕메이트에서 사용할 기본 정보를 알려주세요.
+            산책 메이트를 찾는 데 사용되는 정보예요.
           </p>
         </div>
 
-        {/* 입력 */}
-        <div className="space-y-6">
+        {/* 사용자 정보 */}
+        <section className="space-y-5">
+          <h2 className="text-lg font-semibold">내 정보</h2>
+
           <div>
-            <label className="mb-2 block text-sm font-medium text-gray-700">
-              닉네임
-            </label>
+            <label className="mb-2 block text-sm font-medium">닉네임</label>
 
             <Input
-              value={nickname}
-              onChange={(e) => setNickname(e.target.value)}
+              name="nickname"
+              value={form.nickname}
+              onChange={handleChange}
               placeholder="닉네임을 입력해주세요"
-              className="h-12"
             />
           </div>
 
           <div>
-            <label className="mb-2 block text-sm font-medium text-gray-700">
-              강아지 이름
-            </label>
+            <label className="mb-2 block text-sm font-medium">성별</label>
+
+            <div className="flex gap-2">
+              {["남성", "여성"].map((gender) => (
+                <Button
+                  key={gender}
+                  type="button"
+                  variant={form.gender === gender ? "default" : "outline"}
+                  onClick={() =>
+                    setForm((prev) => ({
+                      ...prev,
+                      gender,
+                    }))
+                  }
+                  className="flex-1"
+                >
+                  {gender}
+                </Button>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <label className="mb-2 block text-sm font-medium">활동 지역</label>
 
             <Input
-              value={dogName}
-              onChange={(e) => setDogName(e.target.value)}
-              placeholder="강아지 이름을 입력해주세요"
-              className="h-12"
+              name="location"
+              value={form.location}
+              onChange={handleChange}
+              placeholder="예: 서울 마포구"
             />
           </div>
-        </div>
+        </section>
 
-        {/* 버튼 */}
+        {/* 강아지 정보 */}
+        <section className="mt-10 space-y-5">
+          <h2 className="text-lg font-semibold">반려견 정보</h2>
+
+          <div>
+            <label className="mb-2 block text-sm font-medium">이름</label>
+
+            <Input
+              name="dogName"
+              value={form.dogName}
+              onChange={handleChange}
+              placeholder="강아지 이름을 입력해주세요"
+            />
+          </div>
+
+          <div>
+            <label className="mb-2 block text-sm font-medium">성별</label>
+
+            <div className="flex gap-2">
+              {["남아", "여아"].map((gender) => (
+                <Button
+                  key={gender}
+                  type="button"
+                  variant={form.dogGender === gender ? "default" : "outline"}
+                  onClick={() =>
+                    setForm((prev) => ({
+                      ...prev,
+                      dogGender: gender,
+                    }))
+                  }
+                  className="flex-1"
+                >
+                  {gender}
+                </Button>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <label className="mb-2 block text-sm font-medium">나이</label>
+
+            <Input
+              name="dogAge"
+              type="number"
+              value={form.dogAge}
+              onChange={handleChange}
+              placeholder="강아지 나이"
+            />
+          </div>
+
+          <div>
+            <label className="mb-2 block text-sm font-medium">견종</label>
+
+            <Input
+              name="breed"
+              value={form.breed}
+              onChange={handleChange}
+              placeholder="예: 말티즈"
+            />
+          </div>
+
+          <div>
+            <label className="mb-2 block text-sm font-medium">
+              중성화 여부
+            </label>
+
+            <div className="flex gap-2">
+              <Button
+                type="button"
+                variant={form.neutered ? "default" : "outline"}
+                onClick={() =>
+                  setForm((prev) => ({
+                    ...prev,
+                    neutered: true,
+                  }))
+                }
+                className="flex-1"
+              >
+                했어요
+              </Button>
+
+              <Button
+                type="button"
+                variant={!form.neutered ? "default" : "outline"}
+                onClick={() =>
+                  setForm((prev) => ({
+                    ...prev,
+                    neutered: false,
+                  }))
+                }
+                className="flex-1"
+              >
+                안 했어요
+              </Button>
+            </div>
+          </div>
+
+          <div>
+            <label className="mb-2 block text-sm font-medium">성격</label>
+
+            <Input
+              name="personality"
+              value={form.personality}
+              onChange={handleChange}
+              placeholder="예: 활발하고 다른 강아지를 좋아해요"
+            />
+          </div>
+        </section>
+
         <Button
           type="button"
           onClick={handleSubmit}
-          disabled={!nickname || !dogName}
-          className="mt-8 h-12 w-full rounded-xl bg-[#F5A623] text-white hover:bg-[#E89A16]"
+          disabled={isLoading}
+          className="mt-10 h-12 w-full"
         >
-          시작하기
+          {isLoading ? "저장 중..." : "댕메이트 시작하기"}
         </Button>
       </div>
     </main>
