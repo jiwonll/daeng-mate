@@ -42,6 +42,7 @@ export async function middleware(request: NextRequest) {
   const isAuthPage =
     pathname.startsWith("/login") || pathname.startsWith("/signup");
   const isLandingPage = pathname === "/";
+  const isOnboardingPage = pathname.startsWith("/onboarding");
 
   if (isAuthCallback) {
     return response;
@@ -49,6 +50,18 @@ export async function middleware(request: NextRequest) {
 
   if (!user && !isAuthPage && !isLandingPage) {
     return NextResponse.redirect(new URL("/login", request.url));
+  }
+
+  if (user && !isOnboardingPage) {
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("is_onboarded")
+      .eq("id", user.id)
+      .single();
+
+    if (!profile) {
+      return NextResponse.redirect(new URL("/onboarding", request.url));
+    }
   }
 
   if (user && (isAuthPage || isLandingPage)) {
