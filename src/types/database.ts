@@ -3,7 +3,7 @@ export type Profile = {
   region: string;
   temperature: number;
   created_at: string;
-  is_onboarding: boolean;
+  is_onboarded: boolean;
 };
 
 export type Dog = {
