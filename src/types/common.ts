@@ -9,3 +9,15 @@ export type AuthCredentials = {
   email: string;
   password: string;
 };
+
+export type OnboardingForm = {
+  nickname: string;
+  gender: string;
+  location: string;
+  dogName: string;
+  dogGender: string;
+  dogAge: string;
+  breed: string;
+  neutered: boolean | null;
+  personality: string;
+};
