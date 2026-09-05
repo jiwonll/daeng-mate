@@ -4,17 +4,15 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import { useState } from "react";
-import { useMutation } from "@tanstack/react-query";
+import useOnboarding from "@/hooks/useOnboarding";
 
 export default function OnboardingPage() {
-  const { isPending } = useMutation({
-    // mutationFn:
-  });
+  const { mutate, isPending } = useOnboarding();
 
   const [form, setForm] = useState({
     nickname: "",
     gender: "",
-    location: "",
+    region: "",
     dogName: "",
     dogGender: "",
     dogAge: "",
@@ -25,6 +23,7 @@ export default function OnboardingPage() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
+    mutate(form);
   };
 
   return (
@@ -94,11 +93,11 @@ export default function OnboardingPage() {
                 </label>
 
                 <Input
-                  name="location"
+                  name="region"
                   placeholder="예: 서울 마포구"
-                  value={form.location}
+                  value={form.region}
                   onChange={(e) =>
-                    setForm((prev) => ({ ...prev, location: e.target.value }))
+                    setForm((prev) => ({ ...prev, region: e.target.value }))
                   }
                 />
               </div>
@@ -217,7 +216,11 @@ export default function OnboardingPage() {
             </div>
           </section>
 
-          <Button type="submit" className="mt-10 h-11 w-full text-lg">
+          <Button
+            disabled={isPending}
+            type="submit"
+            className="mt-10 h-11 w-full text-lg"
+          >
             {isPending ? "저장 중..." : "댕메이트 시작하기"}
           </Button>
         </form>
