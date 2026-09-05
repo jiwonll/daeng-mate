@@ -13,7 +13,7 @@ export type AuthCredentials = {
 export type OnboardingForm = {
   nickname: string;
   gender: string;
-  location: string;
+  region: string;
   dogName: string;
   dogGender: string;
   dogAge: string;
