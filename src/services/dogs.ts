@@ -1,4 +1,4 @@
-import { Dog } from "@/types/database";
+import { Dog } from "@/types/dogs";
 import { supabase } from "@/lib/supabase/client";
 
 export async function getDog(): Promise<Dog | null> {
