@@ -11,9 +11,7 @@ export default function NavLayout({
       <Sidebar />
       <BottomNav />
       <div className="pt-10 md:ml-64 min-h-screen">
-        <main className="flex-1 pb-20 md:pb-10 px-4 max-w-4xl mx-auto w-full">
-          {children}
-        </main>
+        <main className="flex-1 pb-20 md:pb-10 px-10 w-full">{children}</main>
       </div>
     </>
   );
