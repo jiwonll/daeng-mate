@@ -1,0 +1,78 @@
+import { Database } from "../../types/supabase";
+
+export type Walk = Database["public"]["Tables"]["walks"]["Row"];
+
+export const MOCK_WALKS: Walk[] = [
+  {
+    id: "walk-mock-1",
+    user_id: "user-123",
+    distance: 2450, // m 단위
+    duration: 2100, // 초 단위
+    route_path: null,
+    started_at: "2026-09-07T08:30:00.000Z",
+    ended_at: "2026-09-07T09:05:00.000Z",
+    created_at: "2026-09-07T09:05:00.000Z",
+    start_location: "서울 연남동",
+    end_location: "서울 어딘가",
+  },
+  {
+    id: "walk-mock-2",
+    user_id: "user-123",
+    distance: 1800,
+    duration: 1500,
+    route_path: null,
+    started_at: "2026-09-06T19:00:00.000Z",
+    ended_at: "2026-09-06T19:25:00.000Z",
+    created_at: "2026-09-06T19:25:00.000Z",
+    start_location: "서울 연남동",
+    end_location: "서울 한강",
+  },
+  {
+    id: "walk-mock-3",
+    user_id: "user-123",
+    distance: 3200,
+    duration: 2880,
+    route_path: null,
+    started_at: "2026-09-05T07:10:00.000Z",
+    ended_at: "2026-09-05T07:58:00.000Z",
+    created_at: "2026-09-05T07:58:00.000Z",
+    start_location: "서울 연남동",
+    end_location: "서울 한강",
+  },
+  {
+    id: "walk-mock-4",
+    user_id: "user-123",
+    distance: 950,
+    duration: 900,
+    route_path: null,
+    started_at: "2026-09-04T21:15:00.000Z",
+    ended_at: "2026-09-04T21:30:00.000Z",
+    created_at: "2026-09-04T21:30:00.000Z",
+    start_location: "서울 연남동",
+    end_location: "서울 한강",
+  },
+  {
+    id: "walk-mock-4",
+    user_id: "user-123",
+    distance: 950,
+    duration: 900,
+    route_path: null,
+    started_at: "2026-09-04T21:15:00.000Z",
+    ended_at: "2026-09-04T21:30:00.000Z",
+    created_at: "2026-09-04T21:30:00.000Z",
+    start_location: "서울 연남동",
+    end_location: "서울 한강",
+  },
+  {
+    id: "walk-mock-4",
+    user_id: "user-123",
+    distance: 950,
+    duration: 900,
+    route_path: null,
+    started_at: "2026-09-04T21:15:00.000Z",
+    ended_at: "2026-09-04T21:30:00.000Z",
+    created_at: "2026-09-04T21:30:00.000Z",
+    start_location: "서울 연남동",
+    end_location: "서울 한강",
+  },
+];
