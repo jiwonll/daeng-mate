@@ -6,9 +6,12 @@ import Image from "next/image";
 import { Button } from "../ui/button";
 import useLogout from "@/hooks/useLogout";
 import { Settings } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 export default function Sidebar() {
+  const pathname = usePathname();
   const { handleLogout, isPending } = useLogout();
+
   const renderIcon = (Icon: any, active: boolean) => {
     if (typeof Icon === "function" || typeof Icon === "object") {
       return (
@@ -47,20 +50,29 @@ export default function Sidebar() {
         </Link>
 
         <nav className="space-y-2">
-          {NAV_ITEMS.map((item) => (
-            <Link
-              key={item.id}
-              href={`/${item.id === "home" ? "" : item.id}`}
-              className={`w-full flex items-center space-x-4 px-4 py-3 rounded-xl transition-colors ${
-                item.active
-                  ? "bg-yellow-50 text-yellow-600 font-bold"
-                  : "text-gray-600 hover:bg-gray-100"
-              }`}
-            >
-              {renderIcon(item.icon, item.active)}
-              <span className="text-base">{item.name}</span>
-            </Link>
-          ))}
+          {NAV_ITEMS.map((item) => {
+            const targetPath = item.id === "home" ? "/main" : `/${item.id}`;
+
+            const isActive =
+              targetPath === "/"
+                ? pathname === "/"
+                : pathname.startsWith(targetPath);
+
+            return (
+              <Link
+                key={item.id}
+                href={targetPath}
+                className={`w-full flex items-center space-x-4 px-4 py-3 rounded-xl transition-colors ${
+                  isActive
+                    ? "bg-yellow-50 text-yellow-600 font-bold"
+                    : "text-gray-600 hover:bg-gray-100"
+                }`}
+              >
+                {renderIcon(item.icon, isActive)}
+                <span className="text-base">{item.name}</span>
+              </Link>
+            );
+          })}
         </nav>
       </div>
 
