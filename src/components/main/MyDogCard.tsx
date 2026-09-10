@@ -2,7 +2,7 @@
 
 import { getDog } from "@/services/dogs";
 import { useQuery } from "@tanstack/react-query";
-
+import { PawPrint } from "lucide-react";
 export default function MainContent() {
   const { data: dog, isLoading } = useQuery({
     queryKey: ["dog"],
@@ -26,7 +26,12 @@ export default function MainContent() {
 
   return (
     <div className="mt-10 w-150">
-      <h3 className="font-semibold text-lg text-gray-900 mb-5">내 강아지</h3>
+      <div className="flex gap-2 ">
+        <h3 className="font-semibold text-2xl text-gray-900 mb-5 font-jua">
+          내<span className="text-primary"> 댕댕이</span>
+        </h3>
+        <PawPrint />
+      </div>
       <div className="flex flex-col gap-3 rounded-2xl bg-amber-50 p-5 shadow-sm border border-amber-100">
         <div className="flex items-center gap-10">
           <div className="w-50 h-50 flex-shrink-0 rounded-xl overflow-hidden bg-amber-100 border border-amber-200">
