@@ -10,12 +10,11 @@ export type ProfileRow = Database["public"]["Tables"]["profiles"]["Row"];
 export type DogRow = Database["public"]["Tables"]["dogs"]["Row"];
 
 export type ProfileSummary = Pick<ProfileRow, "id" | "nickname">;
-export type DogSummary = Pick<DogRow, "name" | "photo_url" | "breed" | "age">;
 
 export type MatePostWithDog = MatePostRow & {
   profiles:
     | (ProfileSummary & {
-        dogs: DogSummary | null;
+        dogs: DogRow | null;
       })
     | null;
 };

@@ -13,10 +13,7 @@ export async function getMatePosts(): Promise<MatePostWithDog[] | null> {
         id,
         nickname,
         dogs!dogs_user_id_fkey (
-          name,
-          photo_url,
-          breed,
-          age
+         *
         )
       )
     `);
