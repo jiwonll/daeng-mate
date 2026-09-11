@@ -1,3 +1,9 @@
+import MyPageTabs from "@/components/profile/MyPageTabs";
+
 export default function ProfilePage() {
-  return <div></div>;
+  return (
+    <div>
+      <MyPageTabs></MyPageTabs>
+    </div>
+  );
 }
