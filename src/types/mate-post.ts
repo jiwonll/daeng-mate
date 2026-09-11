@@ -9,7 +9,7 @@ export type MatePostRow = Database["public"]["Tables"]["mate_posts"]["Row"];
 export type ProfileRow = Database["public"]["Tables"]["profiles"]["Row"];
 export type DogRow = Database["public"]["Tables"]["dogs"]["Row"];
 
-export type ProfileSummary = Pick<ProfileRow, "id" | "nickname">;
+export type ProfileSummary = Pick<ProfileRow, "id" | "nickname" | "gender">;
 
 export type MatePostWithDog = MatePostRow & {
   profiles:
@@ -18,3 +18,5 @@ export type MatePostWithDog = MatePostRow & {
       })
     | null;
 };
+
+export type MatePostStatus = "recruiting" | "closed" | "completed";

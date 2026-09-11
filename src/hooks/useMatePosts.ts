@@ -1,3 +1,5 @@
+"use client";
+
 import { getMatePosts } from "@/services/mate-post";
 import { useQuery } from "@tanstack/react-query";
 
