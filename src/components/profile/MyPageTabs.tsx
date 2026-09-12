@@ -4,11 +4,12 @@ import { useState } from "react";
 import ProfileEdit from "@/components/profile/ProfileEdit";
 import DogManagement from "@/components/profile/DogManagement";
 import ReservationList from "@/components/profile/ReservationList";
+import MyPosts from "@/components/profile/MyPosts";
 import { CalendarCheck, User, Dog } from "lucide-react";
 
 export default function MyPageTabs() {
   const [activeTab, setActiveTab] = useState<
-    "reservations" | "profile" | "dogs"
+    "reservations" | "profile" | "dogs" | "myPosts"
   >("reservations");
 
   return (
@@ -50,11 +51,23 @@ export default function MyPageTabs() {
         >
           <Dog className="w-4 h-4" />내 강아지 관리
         </button>
+
+        <button
+          onClick={() => setActiveTab("myPosts")}
+          className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl font-bold text-sm transition-all ${
+            activeTab === "myPosts"
+              ? "bg-amber-400 text-slate-900 shadow-sm"
+              : "text-slate-500 hover:text-slate-800 hover:bg-slate-50"
+          }`}
+        >
+          내가 작성한 모집글
+        </button>
       </nav>
 
       {activeTab === "reservations" && <ReservationList />}
       {activeTab === "profile" && <ProfileEdit />}
       {activeTab === "dogs" && <DogManagement />}
+      {activeTab === "myPosts" && <MyPosts />}
     </div>
   );
 }
