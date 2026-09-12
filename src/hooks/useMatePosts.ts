@@ -1,7 +1,7 @@
 "use client";
 
-import { getMatePosts } from "@/services/mate-post";
-import { useQuery } from "@tanstack/react-query";
+import { getMatePosts, createMatePost } from "@/services/mate-post";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 export function useMatePosts() {
   const {
@@ -14,4 +14,21 @@ export function useMatePosts() {
   });
 
   return { matePosts, isLoading, isError };
+}
+
+export function useCreateMatePost() {
+  const queryClient = useQueryClient();
+  const { mutate, mutateAsync, isPending, isError, data } = useMutation({
+    mutationFn: createMatePost,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["matePosts"] });
+    },
+  });
+  return {
+    createPost: mutate,
+    createPostAsync: mutateAsync,
+    isPending,
+    isError,
+    data,
+  };
 }
