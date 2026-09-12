@@ -5,6 +5,7 @@ import Link from "next/link";
 import { MapPin, Calendar, Heart, ShieldCheck, Sparkles } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { MatePostWithDog } from "@/types/mate-post";
+import { formatMeetingTime } from "@/utils/date";
 
 export default function MateCard({ post }: { post: MatePostWithDog }) {
   const isClosed = post.status === "closed";
@@ -99,7 +100,7 @@ export default function MateCard({ post }: { post: MatePostWithDog }) {
             <div className="flex items-center gap-1.5 shrink-0">
               <Calendar className="w-4 h-4 text-amber-500 shrink-0" />
               <span className="font-medium">
-                {post.meeting_time || "날짜 미정"}
+                {formatMeetingTime(post.meeting_time) || "날짜 미정"}
               </span>
             </div>
           </div>
