@@ -7,6 +7,7 @@ import { Button } from "../ui/button";
 import useLogout from "@/hooks/useLogout";
 import { Settings } from "lucide-react";
 import { usePathname } from "next/navigation";
+import { Bell } from "lucide-react";
 
 export default function Sidebar() {
   const pathname = usePathname();
@@ -81,8 +82,8 @@ export default function Sidebar() {
           href={"/profile"}
           className="flex gap-1 justify-center items-center"
         >
-          <Settings className="w-6 h-6" />
-          <span className="font-jua text-sm ">내 계정</span>
+          <Bell className="w-6 h-6" />
+          <span className="font-jua text-sm ">내 알림</span>
         </Link>
         <Button className="h-10" onClick={() => handleLogout()}>
           {isPending ? "로그아웃 중" : "로그아웃"}
