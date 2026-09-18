@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import { Search, Plus, Filter, Dog } from "lucide-react";
 import { Input } from "@/components/ui/input";
@@ -13,18 +12,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useMateFilterStore } from "@/stores/useMateFilterStore";
 
-interface MateHeaderProps {
-  onSearch?: (term: string) => void;
-  onFilterChange?: (filter: string) => void;
-}
-
-export default function MateHeader({
-  onSearch,
-  onFilterChange,
-}: MateHeaderProps) {
-  const [searchTerm, setSearchTerm] = useState("");
-
+export default function MateHeader() {
+  const {
+    searchTerm,
+    sizeFilter,
+    statusFilter,
+    setSearchTerm,
+    setSizeFilter,
+    setStatusFilter,
+  } = useMateFilterStore();
   return (
     <div className="space-y-5 bg-white p-6">
       <div className="flex items-center justify-between gap-4">
@@ -59,12 +57,13 @@ export default function MateHeader({
             placeholder="동네 이름이나 글 제목으로 검색..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
+
             className="pl-10 h-11 bg-gray-50 border-gray-200 rounded-xl focus:bg-white transition-colors"
           />
         </div>
 
         <div className="flex gap-2">
-          <Select defaultValue="all">
+          <Select value={sizeFilter} onValueChange={setSizeFilter}>
             <SelectTrigger className="w-[120px] h-11 bg-gray-50 border-gray-200 rounded-xl font-medium text-gray-700">
               <div className="flex items-center gap-1.5">
                 <Dog className="w-4 h-4 text-gray-500" />
@@ -80,7 +79,7 @@ export default function MateHeader({
             </SelectContent>
           </Select>
 
-          <Select defaultValue="all">
+          <Select value={statusFilter} onValueChange={setStatusFilter}>
             <SelectTrigger className="w-[130px] h-11 bg-gray-50 border-gray-200 rounded-xl font-medium text-gray-700">
               <div className="flex items-center gap-1.5">
                 <Filter className="w-4 h-4 text-gray-500" />
