@@ -19,17 +19,18 @@ import { toast } from "sonner";
 import { useMateParticipate } from "@/hooks/useMateParticipate";
 import { MatePostRow } from "@/types/mate-post";
 import { useParams } from "next/navigation";
+import { useUser } from "@/hooks/useUser";
 
 export default function MateDetailClient() {
   const { matePosts } = useMatePosts();
+  const { user } = useUser();
   const {
     participations,
     updateParticipate,
     deleteParticipate,
     isDeleting,
     isUpdating,
-    user,
-  } = useMateParticipate();
+  } = useMateParticipate(user?.id || "");
   const isPending = isDeleting || isUpdating;
 
   const params = useParams();

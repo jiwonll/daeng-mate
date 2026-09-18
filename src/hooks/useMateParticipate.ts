@@ -6,24 +6,22 @@ import {
   deleteMateParticipate,
 } from "@/services/mate-participants";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { useUser } from "@/hooks/useUser";
 import { toast } from "sonner";
 
-export function useMateParticipate() {
-  const { user } = useUser();
+export function useMateParticipate(userId: string) {
   const queryClient = useQueryClient();
 
   const query = useQuery({
-    queryKey: ["mateParticipate", user?.id],
-    queryFn: () => getMateParticipate(user?.id || ""),
-    enabled: !!user?.id,
+    queryKey: ["mateParticipate", userId],
+    queryFn: () => getMateParticipate(userId),
+    enabled: !!userId,
   });
 
   const updateMutation = useMutation({
     mutationFn: updateMateParticipate,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["mateParticipate", user?.id],
+        queryKey: ["mateParticipate", userId],
       });
       toast.success("참여 신청이 완료되었습니다.");
     },
@@ -36,7 +34,7 @@ export function useMateParticipate() {
     mutationFn: deleteMateParticipate,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["mateParticipate", user?.id],
+        queryKey: ["mateParticipate", userId],
       });
       toast.success("참여 취소가 완료되었습니다.");
     },
@@ -55,6 +53,5 @@ export function useMateParticipate() {
     query,
     updateMutation,
     deleteMutation,
-    user,
   };
 }
