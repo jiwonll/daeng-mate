@@ -17,7 +17,7 @@ export default function BottomNav() {
   const rightItems = NAV_ITEMS.slice(2, 4); // 메이트, 마이
 
   return (
-    <footer className="fixed bottom-0 left-0 right-0 h-16 bg-white border-t border-gray-100 z-30 flex items-center justify-around md:hidden">
+    <footer className="fixed bottom-0 left-0 right-0 h-16 bg-white border-t border-gray-100 z-30 flex items-center justify-around lg:hidden">
       {leftItems.map((item) => (
         <Link
           key={item.id}

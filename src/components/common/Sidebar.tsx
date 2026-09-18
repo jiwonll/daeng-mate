@@ -25,7 +25,7 @@ export default function Sidebar() {
   };
 
   return (
-    <aside className="hidden md:flex fixed top-0 left-0 h-screen w-64 bg-white border-r border-gray-200 z-30 flex-col justify-between p-6">
+    <aside className="hidden lg:flex fixed top-0 left-0 h-screen w-64 bg-white border-r border-gray-200 z-30 flex-col justify-between p-6">
       <div className="space-y-8">
         <Link
           href="/"

@@ -10,8 +10,8 @@ export default function NavLayout({
     <>
       <Sidebar />
       <BottomNav />
-      <div className="pt-10 md:ml-64 min-h-screen">
-        <main className="flex-1 pb-20 md:pb-10 px-10 w-full">{children}</main>
+      <div className="pt-10 lg:ml-64 min-h-screen">
+        <main className="flex-1 pb-20 lg:pb-10 px-10 w-full">{children}</main>
       </div>
     </>
   );
