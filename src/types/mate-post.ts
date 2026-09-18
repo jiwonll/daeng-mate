@@ -20,3 +20,12 @@ export type MatePostWithDog = MatePostRow & {
 };
 
 export type MatePostStatus = "recruiting" | "closed" | "completed";
+
+export type MateFilterState = {
+  searchTerm: string;
+  sizeFilter: string;
+  statusFilter: string;
+  setSearchTerm: (term: string) => void;
+  setSizeFilter: (size: string) => void;
+  setStatusFilter: (status: string) => void;
+};
