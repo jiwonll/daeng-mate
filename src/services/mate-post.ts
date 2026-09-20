@@ -1,7 +1,6 @@
 import { MatePostWithDog } from "@/types/mate-post";
 import { supabase } from "@/lib/supabase/client";
 import { MatePostInsert } from "@/types/mate-post";
-import { toast } from "sonner";
 
 export async function getMatePosts(): Promise<MatePostWithDog[] | null> {
   const { data: mate_posts, error } = await supabase.from("mate_posts").select(`
