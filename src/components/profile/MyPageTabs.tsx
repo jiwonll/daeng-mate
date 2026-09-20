@@ -6,11 +6,20 @@ import DogManagement from "@/components/profile/DogManagement";
 import ReservationList from "@/components/profile/ReservationList";
 import MyPosts from "@/components/profile/MyPosts";
 import { CalendarCheck, User, Dog } from "lucide-react";
+import { useUser } from "@/hooks/useUser";
 
 export default function MyPageTabs() {
   const [activeTab, setActiveTab] = useState<
     "reservations" | "profile" | "dogs" | "myPosts"
   >("reservations");
+  const { user } = useUser();
+  if (!user || !user.id) {
+    return (
+      <div className="py-12 text-center text-slate-500">
+        로그인이 필요합니다.
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
@@ -24,10 +33,7 @@ export default function MyPageTabs() {
           }`}
         >
           <CalendarCheck className="w-4 h-4" />
-          받은 산책 신청
-          <span className="bg-slate-900 text-white text-[10px] px-1.5 py-0.5 rounded-full font-extrabold ml-0.5">
-            2
-          </span>
+          산책 신청
         </button>
 
         <button
@@ -64,10 +70,10 @@ export default function MyPageTabs() {
         </button>
       </nav>
 
-      {activeTab === "reservations" && <ReservationList />}
-      {activeTab === "profile" && <ProfileEdit />}
-      {activeTab === "dogs" && <DogManagement />}
-      {activeTab === "myPosts" && <MyPosts />}
+      {activeTab === "reservations" && <ReservationList userId={user.id} />}
+      {activeTab === "profile" && <ProfileEdit userId={user.id} />}
+      {activeTab === "dogs" && <DogManagement userId={user.id} />}
+      {activeTab === "myPosts" && <MyPosts userId={user.id} />}
     </div>
   );
 }
