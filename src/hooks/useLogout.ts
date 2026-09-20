@@ -3,15 +3,17 @@
 import { signOut } from "@/services/auth";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export default function useLogout() {
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const { mutate: handleLogout, isPending } = useMutation({
     mutationFn: signOut,
     onSuccess: () => {
       toast.success("로그아웃 되었습니다.");
+      queryClient.clear();
       router.replace("/login");
       router.refresh();
     },
