@@ -25,7 +25,7 @@ export default function MateDetailClient() {
   const { matePosts } = useMatePosts();
   const { user } = useUser();
   const {
-    participations,
+    sentParticipations,
     updateParticipate,
     deleteParticipate,
     isDeleting,
@@ -41,7 +41,7 @@ export default function MateDetailClient() {
   }
   const isClosed = post.status === "closed";
   const dog = post.profiles?.dogs;
-  const isParticipating = participations.some(
+  const isParticipating = sentParticipations.some(
     (p) =>
       (p.status === "pending" || p.status === "approved") &&
       p.post_id === post.id
