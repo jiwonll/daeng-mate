@@ -20,7 +20,7 @@ export default function ReservationList({ userId }: ReservationListProps) {
       <div className="flex bg-[#ffffff] p-1 rounded-xl max-w-xs mx-auto">
         <button
           onClick={() => setSubTab("received")}
-          className={`flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-lg text-xs font-bold transition-all ${
+          className={`flex-1 flex items-center justify-center cursor-pointer gap-2 py-2 px-3 rounded-lg text-xs font-bold transition-all ${
             subTab === "received"
               ? "bg-white text-slate-900 shadow-sm"
               : "text-slate-500 hover:text-slate-700"
@@ -28,14 +28,11 @@ export default function ReservationList({ userId }: ReservationListProps) {
         >
           <Inbox className="w-3.5 h-3.5" />
           받은 신청
-          <span className="bg-amber-400 text-slate-900 text-[10px] px-1.5 py-0.2 rounded-full font-extrabold">
-            2
-          </span>
         </button>
 
         <button
           onClick={() => setSubTab("sent")}
-          className={`flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-lg text-xs font-bold transition-all ${
+          className={`flex-1 flex items-center justify-center cursor-pointer gap-2 py-2 px-3 rounded-lg text-xs font-bold transition-all ${
             subTab === "sent"
               ? "bg-white text-slate-900 shadow-sm"
               : "text-slate-500 hover:text-slate-700"

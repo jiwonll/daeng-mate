@@ -18,7 +18,7 @@ export default function SentReservationList({
   const currentUserId = data[0]?.user_id;
   const { deleteParticipate } = useMateParticipate(currentUserId);
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 cursor-pointer">
       {data.map((sent) => {
         const post = sent.mate_posts;
         const profile = post?.profiles;

@@ -28,8 +28,8 @@ export function getStatusBadgeConfig(status: string): StatusBadgeConfig {
     default:
       return {
         label: "대기중",
-        bgClass: "bg-amber-100",
-        textClass: "text-amber-700",
+        bgClass: "bg-accent",
+        textClass: "text-accent-foreground",
       };
   }
 }
