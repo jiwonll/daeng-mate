@@ -1,14 +1,16 @@
 "use client";
 
-import { getCurrentProfile } from "@/services/users";
-import { useQuery } from "@tanstack/react-query";
+import { useGetProfile } from "@/hooks/useProfile";
 import { Bell } from "lucide-react";
+import { useUser } from "@/hooks/useUser";
 
 export default function MainHeader() {
-  const { data: profile, isLoading } = useQuery({
-    queryKey: ["profile"],
-    queryFn: getCurrentProfile,
-  });
+  const { user } = useUser();
+  const userId = user?.id;
+  const { profile, isLoading } = useGetProfile(userId);
+  if (!user) {
+    return;
+  }
   return (
     <div className="flex gap-1 flex-col">
       <div className="flex justify-between">

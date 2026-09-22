@@ -1,19 +1,18 @@
 import { Profile } from "@/types/profile";
 import { supabase } from "@/lib/supabase/client";
+import { ProfileUpdate } from "@/types/profile";
+import { AuthCredentials } from "@/types/common";
 
-export async function getCurrentProfile(): Promise<Profile | null> {
-  const {
-    data: { user },
-    error: userError,
-  } = await supabase.auth.getUser();
-
-  if (!user || userError) {
+export async function getCurrentProfile(
+  userId: string
+): Promise<Profile | null> {
+  if (!userId) {
     return null;
   }
   const { data: profile, error: profileError } = await supabase
     .from("profiles")
     .select("*")
-    .eq("id", user.id)
+    .eq("id", userId)
     .maybeSingle();
   if (profileError) {
     console.error("Profile fetch error:", profileError.message);
@@ -21,4 +20,22 @@ export async function getCurrentProfile(): Promise<Profile | null> {
   }
 
   return profile;
+}
+
+export async function updateProfile({
+  userId,
+  profileUpdate,
+}: {
+  userId: string;
+  profileUpdate: ProfileUpdate;
+}) {
+  const { error } = await supabase
+    .from("profiles")
+    .update(profileUpdate)
+    .eq("id", userId)
+    .select("*");
+  if (error) {
+    console.error("Profile update error:", error.message);
+    return null;
+  }
 }
