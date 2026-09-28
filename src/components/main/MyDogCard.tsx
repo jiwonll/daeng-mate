@@ -1,13 +1,9 @@
 "use client";
 
-import { getDog } from "@/services/dogs";
-import { useQuery } from "@tanstack/react-query";
+import { useGetDog } from "@/hooks/useDog";
 import { PawPrint } from "lucide-react";
 export default function MainContent() {
-  const { data: dog, isLoading } = useQuery({
-    queryKey: ["dog"],
-    queryFn: getDog,
-  });
+  const { dog, isLoading } = useGetDog();
 
   if (isLoading) {
     return (
