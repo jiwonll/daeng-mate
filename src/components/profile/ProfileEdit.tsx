@@ -1,101 +1,45 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useGetProfile, useUpdateProfile } from "@/hooks/useProfile";
-import { useRef } from "react";
+import { useState } from "react";
+import ProfileInfoForm from "./ProfileInfoForm";
+import AccountChangeForm from "./AccountChangeForm";
 
 export default function ProfileEdit({ userId }: { userId: string }) {
-  const formRef = useRef<HTMLFormElement>(null);
-  const { profile } = useGetProfile(userId);
-  const { mutate: updateProfile, isPending } = useUpdateProfile(userId);
-
-  const [nickname, setNickname] = useState("");
-  const [region, setRegion] = useState("");
-  const [gender, setGender] = useState("");
-  const [isEditing, setIsEditing] = useState(false);
-
-  useEffect(() => {
-    if (profile) {
-      setNickname(profile.nickname);
-      setRegion(profile.region ?? "");
-      setGender(profile.gender);
-    }
-  }, [profile]);
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (formRef.current && !formRef.current.contains(e.target as Node)) {
-        setIsEditing(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    updateProfile({
-      userId,
-      profileUpdate: { nickname, region, gender },
-    });
-  };
+  const [activeTab, setActiveTab] = useState<"profile" | "account">("profile");
 
   return (
-    <form
-      ref={formRef}
-      onSubmit={handleSubmit}
-      className="flex flex-col gap-5 rounded-2xl border border-gray-100 bg-white p-10 shadow-sm"
-    >
-      <div className="flex items-center justify-between">
-        <h3 className="font-jua text-xl">내 정보</h3>
-      </div>
-
-      <div className="flex flex-col gap-2">
-        <label>닉네임</label>
-        <input
-          value={nickname}
-          onChange={(e) => setNickname(e.target.value)}
-          readOnly={!isEditing}
-          className="rounded-lg border px-3 py-2"
-          onClick={() => setIsEditing(true)}
-        />
-      </div>
-
-      <div className="flex flex-col gap-2">
-        <label>지역</label>
-        <input
-          value={region}
-          onChange={(e) => setRegion(e.target.value)}
-          readOnly={!isEditing}
-          className="rounded-lg border px-3 py-2"
-          onClick={() => setIsEditing(true)}
-        />
-      </div>
-
-      <div className="flex flex-col gap-2">
-        <label>성별</label>
-        <input
-          value={gender}
-          onChange={(e) => setGender(e.target.value)}
-          readOnly={!isEditing}
-          className="rounded-lg border px-3 py-2"
-          onClick={() => setIsEditing(true)}
-        />
-      </div>
-
-      {isEditing && (
+    <div className="space-y-6">
+      <nav className="flex bg-white p-1.5 rounded-2xl border border-slate-100 shadow-sm max-w-md mx-auto">
         <button
-          type="submit"
-          disabled={isPending}
-          className="rounded-lg bg-[#ffc83d] px-4 py-2 font-semibold"
+          type="button"
+          onClick={() => setActiveTab("profile")}
+          className={`flex-1 cursor-pointer flex items-center justify-center gap-2 py-2.5 rounded-xl font-bold text-sm transition-all ${
+            activeTab === "profile"
+              ? "bg-amber-400 text-slate-900 shadow-sm"
+              : "text-slate-500 hover:text-slate-800 hover:bg-slate-50"
+          }`}
         >
-          {isPending ? "수정 중..." : "수정하기"}
+          기본 정보
         </button>
+
+        <button
+          type="button"
+          onClick={() => setActiveTab("account")}
+          className={`flex-1 cursor-pointer flex items-center justify-center gap-2 py-2.5 rounded-xl font-bold text-sm transition-all ${
+            activeTab === "account"
+              ? "bg-amber-400 text-slate-900 shadow-sm"
+              : "text-slate-500 hover:text-slate-800 hover:bg-slate-50"
+          }`}
+        >
+          계정 설정
+        </button>
+      </nav>
+
+      {activeTab === "profile" ? (
+        <ProfileInfoForm userId={userId} />
+      ) : (
+        <AccountChangeForm />
       )}
-    </form>
+    </div>
   );
 }
