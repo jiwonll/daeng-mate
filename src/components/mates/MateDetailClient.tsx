@@ -37,7 +37,11 @@ export default function MateDetailClient() {
   const postId = params.id as string;
   const post = matePosts?.find((p) => p.id === postId);
   if (!post) {
-    return;
+    return (
+      <div className="max-w-5xl mx-auto px-4 py-20 text-center text-gray-500">
+        존재하지 않거나 삭제된 게시글입니다.
+      </div>
+    );
   }
   const isClosed = post.status === "closed";
   const dog = post.profiles?.dogs;
