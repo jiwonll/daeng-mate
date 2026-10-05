@@ -27,6 +27,8 @@ export type ParticipantMatePost = {
   id: string;
   title: string;
   user_id: string;
+  meeting_place: string;
+  meeting_time: string;
 };
 
 export type ReceivedMateParticipantRow = {
@@ -37,8 +39,6 @@ export type ReceivedMateParticipantRow = {
   created_at: string;
   mate_posts: ParticipantMatePost;
   profiles: ParticipantProfile | null;
-  meeting_place: string;
-  meeting_time: string;
 };
 
 export type SentMateParticipantRow = MateParticipantRow & {

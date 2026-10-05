@@ -89,7 +89,11 @@ export async function getReceivedMateParticipate(
         meeting_place,
         meeting_time
       ),
-        profiles (nickname, region, gender, temperature
+        profiles (nickname, region, gender, temperature, dogs (
+            name,
+            breed,
+            photo_url
+    )
        
       )
     `
@@ -122,5 +126,27 @@ export async function updateParticipateStatus({
   console.log("업데이트 에러:", error);
   if (error) {
     throw new Error(error.message);
+  }
+}
+
+export async function updateParticipateAttendance({
+  userId,
+  postId,
+  attended,
+}: {
+  userId: string;
+  postId: string;
+  attended: boolean;
+}): Promise<void> {
+  const { data, error } = await supabase
+    .from("mate_participants")
+    .update({ attended })
+    .eq("user_id", userId)
+    .eq("post_id", postId)
+    .select();
+
+  if (error) throw new Error(error.message);
+  if (!data || data.length === 0) {
+    throw new Error("변경 권한이 없거나 대상을 찾을 수 없습니다.");
   }
 }
