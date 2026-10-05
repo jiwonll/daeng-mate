@@ -15,8 +15,8 @@ export default function ReceivedReservationList({
     <div className="flex flex-col gap-4">
       {data.map((sent) => {
         const post = sent.mate_posts;
+        const dog = sent.profiles?.dogs;
         const profile = sent.profiles;
-        const dog = profile?.dogs;
         const status = sent.status;
         const statusConfig = getStatusBadgeConfig(status ?? "pending");
         const isPending = status === "pending";
@@ -87,12 +87,12 @@ export default function ReceivedReservationList({
                       <div className="flex items-center gap-1.5">
                         <MapPin className="h-3.5 w-3.5 shrink-0 text-gray-400" />
                         <span className="truncate">
-                          {sent?.meeting_place ?? "장소 미정"}
+                          {post.meeting_place ?? "장소 미정"}
                         </span>
                       </div>
                       <div className="flex items-center gap-1.5">
                         <Calendar className="h-3.5 w-3.5 shrink-0 text-gray-400" />
-                        <span>{formatMeetingTime(sent?.meeting_time)}</span>
+                        <span>{formatMeetingTime(post.meeting_time)}</span>
                       </div>
                     </div>
                     <div>
