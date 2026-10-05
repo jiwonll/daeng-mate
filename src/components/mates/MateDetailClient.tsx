@@ -61,6 +61,8 @@ export default function MateDetailClient() {
     deleteParticipate({ userId: user?.id, postId: post.id });
   };
 
+  const isUser = post.user_id === user?.id;
+
   return (
     <div className="max-w-5xl mx-auto px-4 py-6 sm:py-10 space-y-6 pb-28 sm:pb-10">
       <div className="flex items-center justify-between">
@@ -259,7 +261,7 @@ export default function MateDetailClient() {
                 <div className="hidden sm:block">
                   <Button
                     size="lg"
-                    disabled={isClosed || isPending}
+                    disabled={isClosed || isPending || isUser}
                     className={
                       isClosed
                         ? "w-full bg-gray-200 text-gray-500 font-semibold rounded-2xl h-13 text-base"
@@ -276,9 +278,11 @@ export default function MateDetailClient() {
                     <MessageCircle className="w-5 h-5" />
                     {isClosed
                       ? "모집이 마감되었습니다"
-                      : isParticipating
-                        ? "산책 취소하기"
-                        : "산책 신청하기"}
+                      : isUser
+                        ? "내 작성글 신청 불가"
+                        : isParticipating
+                          ? "산책 취소하기"
+                          : "산책 신청하기"}
                   </Button>
                 </div>
               </div>
