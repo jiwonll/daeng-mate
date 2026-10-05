@@ -2,8 +2,11 @@
 
 import { useGetDog } from "@/hooks/useDog";
 import { PawPrint } from "lucide-react";
+import { useUser } from "@/hooks/useUser";
 export default function MainContent() {
-  const { dog, isLoading } = useGetDog();
+  const { user } = useUser();
+  const userId = user?.id;
+  const { dog, isLoading } = useGetDog(userId);
 
   if (isLoading) {
     return (
