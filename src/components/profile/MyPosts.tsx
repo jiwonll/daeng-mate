@@ -1,29 +1,31 @@
 import { useMatePosts } from "@/hooks/useMatePosts";
 import { Edit, MapPin, User, Dog, Trash2 } from "lucide-react";
 import { formatMeetingTime } from "@/utils/date";
+import { useRouter } from "next/navigation";
+import { useMateParticipate } from "@/hooks/useMateParticipate";
 
 export default function MyPosts({ userId }: { userId: string }) {
   const { matePosts, isLoading } = useMatePosts();
   const myPost = matePosts?.filter((post) => post.user_id === userId);
+  const router = useRouter();
+  const { receivedQuery } = useMateParticipate(userId);
+  const received = receivedQuery.data;
+
   return (
     <div className="space-y-4">
       {myPost?.map((post) => {
         const profile = post.profiles;
         const dog = profile?.dogs;
+        const acceptedCount = received?.filter(
+          (item) => item.status === "accepted" && item.post_id === post.id
+        ).length;
 
         return (
           <div
             key={post.id}
+            onClick={() => router.push(`/mates/${post.id}`)}
             className="flex p-8 border-2 border-slate-100 bg-white rounded-2xl gap-8 shadow-sm items-center justify-between transition-all hover:border-amber-200"
           >
-            <div className="relative w-28 h-28 flex-shrink-0">
-              <img
-                alt="프로필 사진"
-                src={dog?.photo_url || "/images/dog-logo.svg"}
-                className="w-full h-full object-contain border-1 rounded-2xl border-amber-200 p-1 bg-amber-50/50"
-              />
-            </div>
-
             <div className="flex-1 flex flex-col font-jua text-lg gap-2 text-slate-800">
               <div className="flex items-center gap-2 text-xl font-bold text-slate-900">
                 <MapPin className="w-5 h-5 text-amber-500 flex-shrink-0" />
@@ -36,6 +38,11 @@ export default function MyPosts({ userId }: { userId: string }) {
                   <span className="ml-2 font-light text-primary">
                     {formatMeetingTime(post.meeting_time)}
                   </span>
+                </div>
+                <div>
+                  승인한 강아지:
+                  <span className="text-amber-500"> {acceptedCount} </span>
+                  마리
                 </div>
               </div>
 

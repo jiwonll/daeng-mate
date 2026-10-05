@@ -6,6 +6,7 @@ import {
   deleteMateParticipate,
   getReceivedMateParticipate,
   updateParticipateStatus,
+  updateParticipateAttendance,
 } from "@/services/mate-participants";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
@@ -63,6 +64,16 @@ export function useMateParticipate(userId: string) {
       toast.error(`승인/거절 처리 중 오류가 발생했습니다: ${error.message}`);
     },
   });
+  const attendanceMutation = useMutation({
+    mutationFn: updateParticipateAttendance,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["mateParticipate"] });
+    },
+    onError: (error: Error) => {
+      toast.error(`참가 확인 처리 중 오류가 발생했습니다: ${error.message}`);
+    },
+  });
+
   return {
     sentParticipations: sentQuery.data ?? [],
     isSentLoading: sentQuery.isLoading,
@@ -78,5 +89,7 @@ export function useMateParticipate(userId: string) {
     receivedParticipations: receivedQuery.data ?? [],
     isReceivedLoading: receivedQuery.isLoading,
     updateParticipateStatus: updateStatusMutation.mutate,
+    updateAttendance: attendanceMutation.mutate,
+    isAttendanceUpdating: attendanceMutation.isPending,
   };
 }
