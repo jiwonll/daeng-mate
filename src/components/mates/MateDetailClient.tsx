@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowLeft,
-  Share2,
+  Share,
   User,
   Sparkles,
   ShieldCheck,
@@ -68,7 +68,7 @@ export default function MateDetailClient() {
   const isUser = post.user_id === user?.id;
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-6 sm:py-10 space-y-6 pb-28 sm:pb-10">
+    <div className="max-w-6xl mx-auto space-y-6 pb-28 sm:pb-10">
       <div className="flex items-center justify-between">
         <Link
           href="/mates"
@@ -88,7 +88,7 @@ export default function MateDetailClient() {
           className="p-2 text-gray-500 hover:text-gray-800 hover:bg-gray-100 rounded-full transition-colors"
           title="공유하기"
         >
-          <Share2 className="w-4 h-4" />
+          <Share className="w-4 h-4" />
         </button>
       </div>
 
