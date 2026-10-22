@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 import { ChevronRight, PawPrint, MapPin, Clock } from "lucide-react";
-import useWalk from "@/hooks/useWalks";
+import { useWalks } from "@/hooks/useWalks";
 import { MOCK_WALKS } from "@/mocks/walks";
+import { formatMeetingTime } from "@/utils/date";
+import { useUser } from "@/hooks/useUser";
 
 export default function WalkCard() {
-  const { walks, isLoading, isError } = useWalk();
-
-  const recentWalks = MOCK_WALKS.slice(0, 4);
+  const { user } = useUser();
+  const { walks, isLoading, isError } = useWalks(user?.id);
 
   return (
     <div>
@@ -18,14 +19,13 @@ export default function WalkCard() {
       </Link>
 
       <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide snap-x snap-mandatory">
-        {recentWalks.map((walk) => {
+        {walks?.map((walk) => {
           const distanceKm = ((walk.distance || 0) / 1000).toFixed(1);
           const durationMinutes = Math.floor((walk.duration || 0) / 60);
           const walkDate = walk.started_at
-            ? new Date(walk.started_at).toLocaleDateString("ko-KR", {
-                month: "long",
+            ? formatMeetingTime(walk.started_at, {
+                month: "short",
                 day: "numeric",
-                weekday: "short",
               })
             : "날짜 정보 없음";
 
