@@ -1,3 +1,9 @@
+import WalkTracker from "@/components/walk/WalkTracker";
+
 export default function WalkPage() {
-  return <div></div>;
+  return (
+    <div>
+      <WalkTracker></WalkTracker>
+    </div>
+  );
 }

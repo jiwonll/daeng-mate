@@ -39,6 +39,7 @@ export type ReceivedMateParticipantRow = {
   created_at: string;
   mate_posts: ParticipantMatePost;
   profiles: ParticipantProfile | null;
+  attended?: boolean | null;
 };
 
 export type SentMateParticipantRow = MateParticipantRow & {
