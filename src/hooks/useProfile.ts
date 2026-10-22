@@ -33,6 +33,14 @@ export function useUpdateProfile(userId: string) {
 }
 
 export function useUpdatePassword() {
+  const PASSWORD_ERROR_MESSAGES: Record<string, string> = {
+    EMAIL_NOT_CONFIRMED:
+      "이메일 인증을 완료한 뒤 비밀번호를 변경할 수 있습니다.",
+    SOCIAL_ONLY_ACCOUNT: "소셜 로그인 계정은 비밀번호를 변경할 수 없습니다.",
+    INVALID_CURRENT_PASSWORD: "기존 비밀번호가 일치하지 않습니다.",
+    UPDATE_PASSWORD_FAILED: "새 비밀번호 변경에 실패했습니다.",
+    UNAUTHENTICATED: "로그인이 만료되었습니다. 다시 로그인해 주세요.",
+  };
   const { mutateAsync, isPending } = useMutation({
     mutationFn: updatePassword,
     onSuccess: () => {
@@ -40,12 +48,10 @@ export function useUpdatePassword() {
     },
 
     onError: (error: Error) => {
-      if (error.message === "UPDATE_PASSWORD_FAILED") {
-        toast.error("새 비밀번호 변경에 실패했습니다. ");
-      } else {
-        toast.error("비밀번호 변경 중 알 수 없는 에러가 발생했습니다.");
-      }
-
+      toast.error(
+        PASSWORD_ERROR_MESSAGES[error.message] ??
+          "비밀번호 변경 중 알 수 없는 에러가 발생했습니다."
+      );
       console.error("[비밀번호 변경 에러]:", error.message);
     },
   });
