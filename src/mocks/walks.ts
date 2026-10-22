@@ -14,6 +14,7 @@ export const MOCK_WALKS: Walk[] = [
     created_at: "2026-09-07T09:05:00.000Z",
     start_location: "서울 연남동",
     end_location: "서울 어딘가",
+    post_id: "post-123",
   },
   {
     id: "walk-mock-2",
@@ -26,6 +27,7 @@ export const MOCK_WALKS: Walk[] = [
     created_at: "2026-09-06T19:25:00.000Z",
     start_location: "서울 연남동",
     end_location: "서울 한강",
+    post_id: "post-456",
   },
   {
     id: "walk-mock-3",
@@ -38,6 +40,7 @@ export const MOCK_WALKS: Walk[] = [
     created_at: "2026-09-05T07:58:00.000Z",
     start_location: "서울 연남동",
     end_location: "서울 한강",
+    post_id: "post-789",
   },
   {
     id: "walk-mock-4",
@@ -50,6 +53,7 @@ export const MOCK_WALKS: Walk[] = [
     created_at: "2026-09-04T21:30:00.000Z",
     start_location: "서울 연남동",
     end_location: "서울 한강",
+    post_id: "post-101",
   },
   {
     id: "walk-mock-4",
@@ -62,6 +66,7 @@ export const MOCK_WALKS: Walk[] = [
     created_at: "2026-09-04T21:30:00.000Z",
     start_location: "서울 연남동",
     end_location: "서울 한강",
+    post_id: "post-101",
   },
   {
     id: "walk-mock-4",
@@ -74,5 +79,6 @@ export const MOCK_WALKS: Walk[] = [
     created_at: "2026-09-04T21:30:00.000Z",
     start_location: "서울 연남동",
     end_location: "서울 한강",
+    post_id: "post-101",
   },
 ];
