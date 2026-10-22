@@ -28,3 +28,23 @@ export function formatMeetingTime(
     return "일시 미정";
   }
 }
+
+export function formatRemaining(ms: number): string {
+  const totalMin = Math.max(1, Math.ceil(ms / 60_000));
+  const days = Math.floor(totalMin / 1440);
+  const hours = Math.floor((totalMin % 1440) / 60);
+  const mins = totalMin % 60;
+
+  if (days > 0) return `${days}일 ${hours}시간`;
+  if (hours > 0) return `${hours}시간 ${mins}분`;
+  return `${mins}분`;
+}
+
+export function formatElapsed(totalSeconds: number): string {
+  const hrs = Math.floor(totalSeconds / 3600);
+  const mins = Math.floor((totalSeconds % 3600) / 60);
+  const secs = totalSeconds % 60;
+  const mm = String(mins).padStart(2, "0");
+  const ss = String(secs).padStart(2, "0");
+  return `${hrs > 0 ? `${hrs}:` : ""}${mm}:${ss}`;
+}
