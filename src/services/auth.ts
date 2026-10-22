@@ -52,7 +52,6 @@ export async function signInWithKakao() {
   if (error) throw error;
   return data;
 }
-
 export async function updatePassword({
   email,
   currentPassword,
@@ -62,19 +61,35 @@ export async function updatePassword({
   currentPassword: string;
   newPassword: string;
 }) {
+  const {
+    data: { user },
+    error: userError,
+  } = await supabase.auth.getUser();
+  if (userError || !user) throw new Error("UNAUTHENTICATED");
+
+  if (!user.app_metadata.providers?.includes("email")) {
+    throw new Error("SOCIAL_ONLY_ACCOUNT");
+  }
+  if (!user.email_confirmed_at) {
+    throw new Error("EMAIL_NOT_CONFIRMED");
+  }
+
   const { error: authError } = await supabase.auth.signInWithPassword({
     email,
     password: currentPassword,
   });
   if (authError) {
-    throw new Error("INVALID_CURRENT_PASSWORD");
+    throw new Error(
+      authError.code === "email_not_confirmed"
+        ? "EMAIL_NOT_CONFIRMED"
+        : "INVALID_CURRENT_PASSWORD"
+    );
   }
+
   const { data, error: updateError } = await supabase.auth.updateUser({
     password: newPassword,
   });
-  if (updateError) {
-    throw new Error("UPDATE_PASSWORD_FAILED");
-  }
+  if (updateError) throw new Error("UPDATE_PASSWORD_FAILED");
   return data;
 }
 
